@@ -84,7 +84,7 @@
 		194701041DBF36FC00CEB254 = {
 			isa = PBXGroup;
 			children = (
-				1947010F1DBF36FD00CEB254 /* SSPopup */,
+				1947010F1DBF36FD00CEB254 /* Project */,
 				194701291DBF36FD00CEB254 /* SSPopupTests */,
 				194701341DBF36FD00CEB254 /* SSPopupUITests */,
 				1947010E1DBF36FC00CEB254 /* Products */,
@@ -101,17 +101,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1947010F1DBF36FD00CEB254 /* SSPopup */ = {
+		1947010F1DBF36FD00CEB254 /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				194701131DBF36FD00CEB254 /* AppDelegate.h */,
 				194701141DBF36FD00CEB254 /* AppDelegate.m */,
 				194701161DBF36FD00CEB254 /* ViewController.h */,
 				194701171DBF36FD00CEB254 /* ViewController.m */,
-				194701461DBF3BC400CEB254 /* SSPopupFramework */,
+				194701461DBF3BC400CEB254 /* SSPopup */,
 				194701101DBF36FD00CEB254 /* Supporting Files */,
 			);
-			path = SSPopup;
+			path = Project;
 			sourceTree = "<group>";
 		};
 		194701101DBF36FD00CEB254 /* Supporting Files */ = {
@@ -144,13 +144,13 @@
 			path = SSPopupUITests;
 			sourceTree = "<group>";
 		};
-		194701461DBF3BC400CEB254 /* SSPopupFramework */ = {
+		194701461DBF3BC400CEB254 /* SSPopup */ = {
 			isa = PBXGroup;
 			children = (
 				194701431DBF371D00CEB254 /* SSPopup.h */,
 				194701441DBF371D00CEB254 /* SSPopup.m */,
 			);
-			name = SSPopupFramework;
+			name = SSPopup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +220,7 @@
 				TargetAttributes = {
 					1947010C1DBF36FC00CEB254 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = L6A6DC2V8F;
 					};
 					194701251DBF36FD00CEB254 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -429,9 +430,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SSPopup/Info.plist;
+				DEVELOPMENT_TEAM = L6A6DC2V8F;
+				INFOPLIST_FILE = "$(SRCROOT)/Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Karthick-Baskar.SSPopup";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sands.sspopup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -440,9 +442,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SSPopup/Info.plist;
+				DEVELOPMENT_TEAM = L6A6DC2V8F;
+				INFOPLIST_FILE = "$(SRCROOT)/Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Karthick-Baskar.SSPopup";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sands.sspopup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -512,6 +515,7 @@
 				1947013C1DBF36FD00CEB254 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1947013D1DBF36FD00CEB254 /* Build configuration list for PBXNativeTarget "SSPopupTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +524,7 @@
 				1947013F1DBF36FD00CEB254 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		194701401DBF36FD00CEB254 /* Build configuration list for PBXNativeTarget "SSPopupUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +533,7 @@
 				194701421DBF36FD00CEB254 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -9,13 +9,7 @@
 #import "SSPopup.h"
 
 @interface SSPopup ()
-{
-    AppDelegate *appDelegate;
-    
-    NSArray *ordersarray;
-    
-    UIButton *ParentBtn;
-}
+
 @end
 @implementation SSPopup
 
@@ -24,7 +18,7 @@
     self = [super init];
     if ((self = [super initWithFrame:frame]))
     {
-        self.SSPopupDelegate = delegate;
+        self.delegate = delegate;
     }
     
     return self;
@@ -33,37 +27,36 @@
 
 -(void)CreateTableview:(NSArray *)Contentarray withSender:(id)sender  withTitle:(NSString *)title setCompletionBlock:(VSActionBlock )aCompletionBlock{
     
+//    Title
     
+    self.Title=title;
+
+//    DropdownTable
+    
+   self.DropdownTable=[[UITableView alloc]initWithFrame:CGRectMake(self.frame.size.width/2-(self.frame.size.width/1.2)/2,self.frame.size.height/2-(self.frame.size.height/3)/2,self.frame.size.width/1.2,self.frame.size.height/3)];
+    self.DropdownTable.backgroundColor=[UIColor whiteColor];
+    self.DropdownTable.dataSource=self;
+    self.DropdownTable.showsVerticalScrollIndicator=NO;
+    self.DropdownTable.delegate=self;
+    self.DropdownTable.layer.cornerRadius=5.0f;
+    self.DropdownTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self addSubview:self.DropdownTable];
+
+//    ordersarray
+    self.ordersarray=[[NSArray alloc]initWithArray:Contentarray];
+    
+    //Close event
     [self addTarget:self action:@selector(CloseAnimation) forControlEvents:UIControlEventTouchUpInside];
     
+//  Additionals
     self.alpha=0;
     self.backgroundColor=[UIColor colorWithWhite:0.00 alpha:0.5];
-    completionBlock=aCompletionBlock;
-    ParentBtn=(UIButton *)sender;
-    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.completionBlock=aCompletionBlock;
+    self.parentBtn=(UIButton *)sender;
     
-    Title=title;
-
-    
-   DropdownTable=[[UITableView alloc]initWithFrame:CGRectMake(self.frame.size.width/2-(self.frame.size.width/1.2)/2,self.frame.size.height/2-(self.frame.size.height/3)/2,self.frame.size.width/1.2,self.frame.size.height/3)];
-    DropdownTable.backgroundColor=[UIColor whiteColor];
-    DropdownTable.dataSource=self;
-    DropdownTable.showsVerticalScrollIndicator=NO;
-    DropdownTable.delegate=self;
-    DropdownTable.layer.cornerRadius=5.0f;
-    DropdownTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
-    [self addSubview:DropdownTable];
-
-    
-    ordersarray=[[NSArray alloc]initWithArray:Contentarray];
-    
-    
-    NormalAnimation(self.superview, 0.30f,UIViewAnimationOptionTransitionNone,
-                    
-                    self.alpha=1;
-               
-)completion:nil];
+    //Animation
+    [UIView transitionWithView:self.superview duration:0.30f options:UIViewAnimationOptionTransitionNone animations:^{  self.alpha=1;  }completion:nil];
+  
     
 }
 
@@ -79,15 +72,15 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *myview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,10)];
-[myview setBackgroundColor:RGB(227, 9, 50)];
+    [myview setBackgroundColor:RGB(227, 9, 50)];
     
     
     UILabel *headLbl=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, myview.frame.size.width, tableView.frame.size.height/4)];
     headLbl.backgroundColor=[UIColor clearColor];
     headLbl.textColor=[UIColor whiteColor];
-    headLbl.text=Title?Title:@"Select";
+    headLbl.text=self.Title?self.Title:@"Select";
     headLbl.textAlignment=NSTextAlignmentCenter;
-    headLbl.font=AvenirMedium(18);
+    headLbl.font= [UIFont systemFontOfSize:18 weight:UIFontWeightMedium];
     [myview addSubview:headLbl];
     
     
@@ -99,7 +92,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return [ordersarray count];
+    return [self.ordersarray count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -122,17 +115,14 @@
             [lbl removeFromSuperview];
         }
     }
-    
-    
-//    cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    
+   
     
     UILabel *Contentlbl =[[UILabel alloc]initWithFrame:CGRectMake(10,0,tableView.frame.size.width-20,tableView.frame.size.height/4)];
     Contentlbl.backgroundColor=[UIColor clearColor];
-    Contentlbl.text=[ordersarray objectAtIndex:indexPath.row];
+    Contentlbl.text=[self.ordersarray objectAtIndex:indexPath.row];
     Contentlbl.textColor=[UIColor blackColor];
     Contentlbl.textAlignment=NSTextAlignmentLeft;
-    Contentlbl.font=AvenirMedium(16);
+    Contentlbl.font= [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     [cell.contentView addSubview:Contentlbl];
 
     
@@ -140,7 +130,7 @@
     lineView.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [Contentlbl addSubview:lineView];
     
-    if(indexPath.row == [ordersarray count] -1){
+    if(indexPath.row == [self.ordersarray count] -1){
         
         lineView.hidden=YES;
     }
@@ -154,17 +144,17 @@
     cell.contentView.backgroundColor=RGB(248, 218, 218);
     
 
-    [ParentBtn setTitle:[ordersarray objectAtIndex:indexPath.row] forState:UIControlStateNormal]; //Setting title for Button
+    [self.parentBtn setTitle:[self.ordersarray objectAtIndex:indexPath.row] forState:UIControlStateNormal]; //Setting title for Button
 
 
-    if (completionBlock) {
+    if (self.completionBlock) {
         
-         completionBlock((int)indexPath.row);
+         self.completionBlock((int)indexPath.row);
     }
     
-    if ([self.SSPopupDelegate respondsToSelector:@selector(GetSelectedOutlet:)]) {
+    if ([self.delegate respondsToSelector:@selector(popUp:didSelectSSPopupValue:)]) {
         
-         [self.SSPopupDelegate GetSelectedOutlet:(int)indexPath.row];
+         [self.delegate popUp:self didSelectSSPopupValue:(int)indexPath.row];
     }
     
     
@@ -175,20 +165,14 @@
 
 -(void)CloseAnimation{
     
-    NormalAnimation(self.superview, 0.30f,UIViewAnimationOptionTransitionNone,
-                    
-                    DropdownTable.alpha=0;
-                    
-                    
-                    
-                    )
-completion:^(BOOL finished){
+    [UIView transitionWithView:self.superview duration:0.30f options:UIViewAnimationOptionTransitionNone animations:^{  self.DropdownTable.alpha=0;  } completion:^(BOOL finished){
+        
+        [self.DropdownTable removeFromSuperview];
+        [self removeFromSuperview];
+        
+        
+    }];
     
-    [DropdownTable removeFromSuperview];
-    [self removeFromSuperview];
-    
-    
-}];
 }
 
 @end
