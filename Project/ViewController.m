@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "SSPopup.h"
 
-@interface ViewController ()<SSPopupDelegate>
+@interface ViewController ()
 
 @end
 
@@ -18,43 +18,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *StartButton = [[UIButton alloc]init];
-    StartButton.translatesAutoresizingMaskIntoConstraints = NO;
+    UIButton *StartButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-(self.view.frame.size.width/2)/2,self.view.frame.size.height/2-(self.view.frame.size.height/12)/2, self.view.frame.size.width/2,50)];
     [StartButton setTitle:@"Select" forState:UIControlStateNormal];
     StartButton.backgroundColor = [UIColor redColor];
     [StartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [StartButton addTarget:self action:@selector(ButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    StartButton.titleLabel.font = [UIFont systemFontOfSize:20 weight:UIFontWeightMedium];
-    StartButton.layer.masksToBounds = YES;
-    StartButton.layer.cornerRadius = 10;
+    StartButton.titleLabel.font = AvenirMedium(20);
+    StartButton.layer.cornerRadius = 20.0f;
     [self.view addSubview:StartButton];
     
-//    StartButton Constrain
-    
-    [StartButton.centerXAnchor constraintEqualToAnchor:StartButton.superview.centerXAnchor].active = YES;
-    [StartButton.centerYAnchor constraintEqualToAnchor:StartButton.superview.centerYAnchor].active = YES;
-    [StartButton.widthAnchor constraintEqualToConstant:200].active = YES;
-    [StartButton.heightAnchor constraintEqualToConstant:50].active = YES;
 }
 - (void)ButtonAction:(id)sender {
     
-    NSArray *QArray=[[NSArray alloc]initWithObjects:@"Java",@"C++",@"Dot Net",@"Objective c", nil];
-    
     SSPopup* selection = [[SSPopup alloc]init];
+    selection.assignButtonTitle = NO; //Button title showing
     selection.backgroundColor = [UIColor colorWithWhite:0.00 alpha:0.4];
-    selection.frame = CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height);
-    selection.delegate = self;
+    selection.frame = self.view.frame;
     [self.view  addSubview:selection];
     
-    [selection CreateTableview:QArray withSender:sender  withTitle:@"Please Select" setCompletionBlock:^(int tag){
-        
-        NSLog(@"Index--->%d",tag);
-        
+    [selection CreateTableview:[self popupTitles] withSender:sender  withTitle:@"Please Select" setCompletionBlock:^(int tag){
+        NSLog(@"Tag--->%d",tag);
     }];
-
     
 }
 
+-(NSArray *)popupTitles{
+    
+    return @[@"Java",@"C++",@"Dot Net",@"Objective c",@"Python",@"Ruby"];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
